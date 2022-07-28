@@ -1,18 +1,20 @@
-<?php
-require_once('../controller/controller.php');
+<?php require_once("../controller/ControllerListar.php");
 
-$controller = new clientsController();
-$controller->selectClient();
+$pageid = $_GET['page_id'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<html lang="pt-br">
+
+<?php include("head.php"); ?>
+
 <body>
-    
+   <?php include("menu.php");?>
+
+   <?php if($pageid == "client"){?>
+            <?php include("client-list.php");
+        }else{
+            include("car-list.php");
+        }
+    ?>
 </body>
 </html>
