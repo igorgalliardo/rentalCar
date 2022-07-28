@@ -18,16 +18,38 @@ class Banco{
     }
 
     //this function is responsible to receive as parameter informations from controllerCadastro
+<<<<<<< HEAD
     public function setClient($nome,$telefone,$email){
         $stmt = $this->mysqli->prepare("INSERT INTO tbcliente (`nome_cliente`, `telefone_cliente`, `email_cliente`) VALUES (?,?,?)");
         $stmt->bind_param("sss",$nome,$telefone,$email);
+=======
+<<<<<<< HEAD
+    public function setClient($nome,$telefone,$email){
+        $stmt = $this->mysqli->prepare("INSERT INTO tbcliente (`nome_cliente`, `telefone_cliente`, `email_cliente`) VALUES (?,?,?)");
+        $stmt->bind_param("sss",$nome,$telefone,$email);
+=======
+    public function setLivro($nome,$autor,$quantidade,$preco,$data){
+        $stmt = $this->mysqli->prepare("INSERT INTO livros (`nome`, `autor`, `quantidade`, `preco`, `data`) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("sssss",$nome,$autor,$quantidade,$preco,$data);
+>>>>>>> 9284789f0185aa3a20a2ccf3de8f8c762e1daca6
+>>>>>>> be54ce6fb4fe81bb147176ce110d0e50d4335611
          if( $stmt->execute() == TRUE){
             return true ;
         }else{
             return false;
         }
+<<<<<<< HEAD
     }
 
+=======
+<<<<<<< HEAD
+    }
+
+=======
+
+    }
+>>>>>>> 9284789f0185aa3a20a2ccf3de8f8c762e1daca6
+>>>>>>> be54ce6fb4fe81bb147176ce110d0e50d4335611
 
     public function getClient(){
         $result = $this->mysqli->query("SELECT * FROM tbcliente");
@@ -35,6 +57,13 @@ class Banco{
             $array[] = $row;
         }
         return $array;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9284789f0185aa3a20a2ccf3de8f8c762e1daca6
+>>>>>>> be54ce6fb4fe81bb147176ce110d0e50d4335611
     }
 
     public function getCar(){
