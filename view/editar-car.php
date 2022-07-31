@@ -7,7 +7,7 @@
                 <input class="form-control" type="text" name="cor_carro" value="<?php echo $editar->getCor(); ?>" required>
             </div>
             <div class="form-group">
-                <input type="hidden" name="id_carro" value="<?php echo $editar->getNome();?>">
+                <input type="hidden" name="id_carro" value="<?php echo $editar->getIdCarro();?>">
                 <button type="submit" class="btn btn-success" id="editar" name="submit" value="editar">Editar</button>
             </div>
         </form>

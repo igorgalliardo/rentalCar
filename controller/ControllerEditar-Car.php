@@ -1,8 +1,10 @@
 <?php
 require_once("../model/banco.php");
+
 class editarControllerCar {
 
     private $editar;
+    private $idCarro;
     private $nome;
     private $modelo;
     private $ano;
@@ -14,10 +16,11 @@ class editarControllerCar {
     }
     private function criarFormulario($id){
         $row = $this->editar->pesquisaCar($id);
-        $this->nome       =$row['nome_carro'];
-        $this->modelo     =$row['modelo_carro'];
-        $this->ano        =$row['ano_carro'];
-        $this->cor        =$row['cor_carro'];
+        $this->idCarro      =$row['id_carro'];
+        $this->nome         =$row['nome_carro'];
+        $this->modelo       =$row['modelo_carro'];
+        $this->ano          =$row['ano_carro'];
+        $this->cor          =$row['cor_carro'];
 
     }
     public function editarFormulario($nome,$modelo,$ano,$cor,$id){
@@ -26,6 +29,9 @@ class editarControllerCar {
         }else{
             echo "<script>alert('Erro ao gravar registro!');history.back()</script>";
         }
+    }
+    public function getIdCarro(){
+        return $this->idCarro;
     }
     public function getNome(){
         return $this->nome;
@@ -39,10 +45,11 @@ class editarControllerCar {
     public function getCor(){
         return $this->cor;
     }
+
 }
 $id = filter_input(INPUT_GET, 'id');
 $editar = new editarControllerCar($id);
 if(isset($_POST['submit'])){
-    $editar->editarFormulario($_POST['id_carro'],$_POST['nome_carro'],$_POST['modelo_carro'],$_POST['ano_carro'],$_POST['cor_carro']);
+    $editar->editarFormulario($_POST['nome_carro'],$_POST['modelo_carro'],$_POST['ano_carro'],$_POST['cor_carro'],$_POST['id_carro']);
 }
 ?>
