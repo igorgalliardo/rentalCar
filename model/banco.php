@@ -55,6 +55,14 @@ class Banco{
         return $array;
     }
 
+    public function getRent(){
+        $result = $this->mysqli->query("SELECT * FROM tbreservas");
+        while($row = $result->fetch_array(MYSQLI_ASSOC)){
+            $array[] = $row;
+        }
+        return $array;
+    }
+
     public function deleteClient($id){
         if($this->mysqli->query("DELETE FROM `tbcliente` WHERE `nome_cliente` = '".$id."';")== TRUE){
             return true;

@@ -53,3 +53,28 @@ class listarControllerCar{
         }
     }
 }
+
+class listarControllerRent{
+
+    private $lista;
+
+    public function __construct(){
+        $this->lista = new Banco();
+        $this->criarTabelaRent();
+    }
+
+    private function criarTabelaRent(){
+        $row = $this->lista->getRent();
+        foreach ($row as $value){
+            $pageid = $_SESSION['pageid'];
+            echo "<tr>";
+            echo "<th>".$value['id_reserva'] ."</th>";
+            echo "<td>".$value['id_carro_reserva'] ."</td>";
+            echo "<td>".$value['id_cliente_reserva'] ."</td>";
+            echo "<td>".$value['data_reserva'] ."</td>";
+            echo "<td>R$: ".$value['valor_reserva'] .",00</td>";
+            echo "<td><a class='btn btn-warning' href='editar.php?page_id=$pageid&id=".$value['id_reserva']."'>Editar</a><a class='btn btn-danger' href='../controller/ControllerDeletar-Car.php?id=".$value['id_reserva']."'>Excluir</a></td>";
+            echo "</tr>";
+        }
+    }
+}
