@@ -2,9 +2,10 @@
         <thead>
             <tr>
                 <th>Codigo Reserva</th>
-                <th>Dados Veiculo</th>
+                <th>Carro | Marca</th>
                 <th>Cliente</th>
                 <th>Data Reserva</th>
+                <th>Data Devolucao</th>
                 <th>Valor Reserva</th>
             </tr>
         </thead>

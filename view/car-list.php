@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php new listarControllerCar();?>
+            <?php new listarControllerCar();  ?>
 
         </tbody>
 </table>

@@ -14,7 +14,9 @@ $_SESSION['pageid'] = $pageid;
 <body>
    <?php include("menu.php");?>
 
-   <?php if($pageid == "client"){?>
+
+   <?php 
+        if($pageid == "client"){?>
             <?php include("client-list.php");
         }else if($pageid== "car"){
             include("car-list.php");
