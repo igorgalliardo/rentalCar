@@ -63,12 +63,11 @@ class Banco{
         return $array;
     }
     public function getRentC(){
-        $result = $this->mysqli->query("SELECT id_reserva,nome_cliente,nome_carro,modelo_carro,data_reserva,data_devolucao,valor_reserva from tbreservas INNER JOIN tbcliente ON tbreservas.id_cliente_reserva = tbcliente.id_cliente INNER JOIN tbcarro ON tbreservas.id_carro_reserva = tbcarro.id_carro");
+        $result = $this->mysqli->query("SELECT * from tbreservas INNER JOIN tbcliente ON tbreservas.id_cliente_reserva = tbcliente.id_cliente INNER JOIN tbcarro ON tbreservas.id_carro_reserva = tbcarro.id_carro");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
             $array[] = $row;
-
-            return $array;
         }
+        return $array;
     }
 
     public function deleteClient($id){

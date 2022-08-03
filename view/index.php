@@ -18,7 +18,7 @@ $_SESSION['pageid'] = $pageid;
    <?php 
         if($pageid == "client"){?>
             <?php include("client-list.php");
-        }else if($pageid== "car"){
+        }else if($pageid == "car"){
             include("car-list.php");
         }else{
             include("rent-list.php");
