@@ -70,6 +70,14 @@ class Banco{
         return $array;
     }
 
+    public function getClientSearch($searchCli){
+        $result = $this->mysqli->query("SELECT nome_cliente from tbcliente WHERE nome_cliente LIKE '%".$searchCli."%'ORDER BY nome_cliente ASC LIMIT 3");
+        while($row = $result->fetch_array(MYSQLI_ASSOC)){
+            $array[] = $row['nome_cliente'];
+        }
+        echo json_encode($array);
+    }
+
     public function deleteClient($id){
         if($this->mysqli->query("DELETE FROM `tbcliente` WHERE `nome_cliente` = '".$id."';")== TRUE){
             return true;
