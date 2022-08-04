@@ -18,5 +18,5 @@ class searchClient{
         $row = $this->client->getClientSearch($searchCli);
     }
 }
-$searchCli = filter_input(INPUT_GET,'term',FILTER_SANITIZE_STRING);
+$searchCli = filter_input(INPUT_GET,'term');
 $search = new searchClient($searchCli);

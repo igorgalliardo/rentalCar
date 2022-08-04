@@ -78,6 +78,14 @@ class Banco{
         echo json_encode($array);
     }
 
+    public function getCarSearch($searchCar){
+        $result = $this->mysqli->query("SELECT nome_carro from tbcarro WHERE nome_carro LIKE '%".$searchCar."%'ORDER BY nome_carro ASC LIMIT 3");
+        while($row = $result->fetch_array(MYSQLI_ASSOC)){
+            $array[] = $row['nome_carro'];
+        }
+        echo json_encode($array);
+    }
+
     public function deleteClient($id){
         if($this->mysqli->query("DELETE FROM `tbcliente` WHERE `nome_cliente` = '".$id."';")== TRUE){
             return true;

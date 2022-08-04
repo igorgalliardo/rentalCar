@@ -1,4 +1,4 @@
-<?php require_once("../controller/ControllerSearchCli.php");
+<?php
 $pageid = $_GET['page_id'];
 
 
