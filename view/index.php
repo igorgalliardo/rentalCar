@@ -12,12 +12,10 @@ $_SESSION['pageid'] = $pageid;
 <?php include("head.php"); ?>
 
 <body>
-   <?php include("menu.php");?>
-
-
-   <?php 
-        if($pageid == "client"){?>
-            <?php include("client-list.php");
+   <?php include("menu.php");
+ 
+        if($pageid == "client"){
+            include("client-list.php");
         }else if($pageid == "car"){
             include("car-list.php");
         }else{
