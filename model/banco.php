@@ -39,8 +39,16 @@ class Banco{
     }
 
     public function setRent($idCliente,$idCarro,$dataR,$dataD,$valorR){
+        $sql = $this->mysqli->query("SELECT id_cliente from tbcliente WHERE nome_cliente = '$idCliente'");
+        while($row = $sql->fetch_array(MYSQLI_ASSOC)){
+            $cliente = $row['id_cliente'];
+        }
+        $sqlCar = $this->mysqli->query("SELECT id_carro from tbcarro WHERE nome_carro = '$idCarro'");
+        while($rowCar = $sqlCar->fetch_array(MYSQLI_ASSOC)){
+            $car = $rowCar['id_carro'];
+        }
         $stmt = $this->mysqli->prepare("INSERT INTO tbreservas (`id_cliente_reserva`, `id_carro_reserva`, `data_reserva`, `data_devolucao`,`valor_reserva`) VALUES (?,?,?,?,?)");
-        $stmt->bind_param("sssss",$idCliente,$idCarro,$dataR,$dataD,$valorR);
+        $stmt->bind_param("sssss",$cliente,$car,$dataR,$dataD,$valorR);
          if( $stmt->execute() == TRUE){
             return true ;
         }else{
@@ -138,6 +146,29 @@ class Banco{
     public function updateCar($nome,$modelo,$ano,$cor,$id){
         $stmt = $this->mysqli->prepare("UPDATE `tbcarro` SET `nome_carro` = ?, `modelo_carro`=?, `ano_carro`=?, `cor_carro`=? WHERE `id_carro` = ?");
         $stmt->bind_param("sssss",$nome,$modelo,$ano,$cor,$id);
+        if($stmt->execute()==TRUE){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function pesquisaRent($id){
+        $result = $this->mysqli->query("SELECT * FROM tbreservas INNER JOIN tbcliente ON tbreservas.id_cliente_reserva = tbcliente.id_cliente INNER JOIN tbcarro ON tbreservas.id_carro_reserva = tbcarro.id_carro WHERE id_reserva='$id'");
+        return $result->fetch_array(MYSQLI_ASSOC);
+
+    }
+    public function updateRent($clienteR,$carroR,$dataR,$dataD,$valorR,$id){
+        $sql = $this->mysqli->query("SELECT id_cliente from tbcliente WHERE nome_cliente = '$clienteR'");
+        while($row = $sql->fetch_array(MYSQLI_ASSOC)){
+            $cliente = $row['id_cliente'];
+        }
+        $sqlCar = $this->mysqli->query("SELECT id_carro from tbcarro WHERE nome_carro = '$carroR'");
+        while($rowCar = $sqlCar->fetch_array(MYSQLI_ASSOC)){
+            $car = $rowCar['id_carro'];
+        }
+        $stmt = $this->mysqli->prepare("UPDATE `tbreservas` SET `id_cliente_reserva` = ?, `id_carro_reserva`=?, `data_reserva`=?, `data_devolucao`=?, `valor_reserva`=? WHERE `id_reserva` = ?");
+        $stmt->bind_param("ssssss",$cliente,$car,$dataR,$dataD,$valorR,$id);
         if($stmt->execute()==TRUE){
             return true;
         }else{
