@@ -1,5 +1,6 @@
 <?php
-$pageid = $_GET['page_id'];?>
+$pageid = $_GET['page_id'];
+?>
 
 <hr>
 <a href="index.php?page_id=client" class="btn btn-default">Clientes</a>
