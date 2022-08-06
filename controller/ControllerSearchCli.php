@@ -6,7 +6,7 @@ session_start();
 $pageid = $_SESSION['pageid'];
 
 class searchClient{
-    
+
     private $client;
 
     public function __construct($searchCli){

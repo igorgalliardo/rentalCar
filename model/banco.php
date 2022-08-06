@@ -38,6 +38,16 @@ class Banco{
         }
     }
 
+    public function setRent($idCliente,$idCarro,$dataR,$dataD,$valorR){
+        $stmt = $this->mysqli->prepare("INSERT INTO tbreservas (`id_cliente_reserva`, `id_carro_reserva`, `data_reserva`, `data_devolucao`,`valor_reserva`) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("sssss",$idCliente,$idCarro,$dataR,$dataD,$valorR);
+         if( $stmt->execute() == TRUE){
+            return true ;
+        }else{
+            return false;
+        }
+    }
+    
 
     public function getClient(){
         $result = $this->mysqli->query("SELECT * FROM tbcliente");
@@ -77,6 +87,7 @@ class Banco{
         }
         echo json_encode($array);
     }
+    
 
     public function getCarSearch($searchCar){
         $result = $this->mysqli->query("SELECT nome_carro from tbcarro WHERE nome_carro LIKE '%".$searchCar."%'ORDER BY nome_carro ASC LIMIT 3");

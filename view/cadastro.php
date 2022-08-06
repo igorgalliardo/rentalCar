@@ -1,6 +1,8 @@
 <?php
 $pageid = $_GET['page_id'];
 
+
+
 $_SESSION['pageid'] = $pageid;
 ?>
 
