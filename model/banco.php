@@ -58,7 +58,7 @@ class Banco{
     
 
     public function getClient(){
-        $result = $this->mysqli->query("SELECT * FROM tbcliente");
+        $result = $this->mysqli->query("SELECT * FROM tbcliente ORDER BY id_cliente ASC");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
             $array[] = $row;
         }
@@ -66,7 +66,7 @@ class Banco{
     }
 
     public function getCar(){
-        $result = $this->mysqli->query("SELECT * FROM tbcarro");
+        $result = $this->mysqli->query("SELECT * FROM tbcarro ORDER BY id_carro ASC");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
             $array[] = $row;
         }
@@ -81,7 +81,7 @@ class Banco{
         return $array;
     }
     public function getRentC(){
-        $result = $this->mysqli->query("SELECT * from tbreservas INNER JOIN tbcliente ON tbreservas.id_cliente_reserva = tbcliente.id_cliente INNER JOIN tbcarro ON tbreservas.id_carro_reserva = tbcarro.id_carro");
+        $result = $this->mysqli->query("SELECT * from tbreservas INNER JOIN tbcliente ON tbreservas.id_cliente_reserva = tbcliente.id_cliente INNER JOIN tbcarro ON tbreservas.id_carro_reserva = tbcarro.id_carro ORDER BY id_reserva ASC");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
             $array[] = $row;
         }
@@ -116,6 +116,14 @@ class Banco{
 
     public function deleteCar($id){
         if($this->mysqli->query("DELETE FROM `tbcarro` WHERE `id_carro` = '".$id."';")== TRUE){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function deleteRent($id){
+        if($this->mysqli->query("DELETE FROM `tbreservas` WHERE `id_reserva` = '".$id."';")== TRUE){
             return true;
         }else{
             return false;
