@@ -1,8 +1,9 @@
 <?php require_once("../controller/ControllerListar.php");
-
-$pageid = $_GET['page_id'];
-
-
+if(isset($_GET['page_id'])){
+    $pageid = $_GET['page_id'];
+}else{
+    $pageid = "client";
+}
 
 $_SESSION['pageid'] = $pageid;
 ?>
@@ -13,7 +14,6 @@ $_SESSION['pageid'] = $pageid;
 
 <body>
    <?php include("menu.php");?>
-
 
    <?php 
         if($pageid == "client"){?>

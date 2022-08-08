@@ -1,6 +1,10 @@
 <?php
-$pageid = $_GET['page_id'];?>
-
+if(isset($_GET['page_id'])){
+    $pageid = $_GET['page_id'];
+}else{
+    $pageid = "client";
+}
+?>
 <hr>
 <a href="index.php?page_id=client" class="btn btn-default">Clientes</a>
 <a href="index.php?page_id=car" class="btn btn-default">Carros</a>
