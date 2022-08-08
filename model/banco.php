@@ -1,12 +1,11 @@
 <?php
-//here we start the database connection getting infos from init.php
+//here we start the database connection getting infos from consts init.php
 require_once("../init.php");
 
 //starting the class banco to create a connection with database
 class Banco{
 
     protected $mysqli;
-
     public function __construct(){
         $this->conexao();
         //using construc function to create a connection always when we create one instance for Banco
@@ -28,6 +27,7 @@ class Banco{
         }
     }
 
+    //function responsible to read and show what was read inside tbCar
     public function setCar($nome,$modelo,$ano,$cor){
         $stmt = $this->mysqli->prepare("INSERT INTO tbcarro (`nome_carro`, `modelo_carro`, `ano_carro`, `cor_carro`) VALUES (?,?,?,?)");
         $stmt->bind_param("ssss",$nome,$modelo,$ano,$cor);
@@ -38,6 +38,7 @@ class Banco{
         }
     }
 
+    //function responsible to read and show what was read inside tbCliente, considering the idCliente received
     public function setRent($idCliente,$idCarro,$dataR,$dataD,$valorR){
         $sql = $this->mysqli->query("SELECT id_cliente from tbcliente WHERE nome_cliente = '$idCliente'");
         while($row = $sql->fetch_array(MYSQLI_ASSOC)){
@@ -55,8 +56,8 @@ class Banco{
             return false;
         }
     }
-    
 
+    //I`m getting the cliente data and saving it inside of array order by asc
     public function getClient(){
         $result = $this->mysqli->query("SELECT * FROM tbcliente ORDER BY id_cliente ASC");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -65,6 +66,7 @@ class Banco{
         return $array;
     }
 
+    //I`m getting the car data and then saving it inside of array ordering by asc
     public function getCar(){
         $result = $this->mysqli->query("SELECT * FROM tbcarro ORDER BY id_carro ASC");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -73,6 +75,7 @@ class Banco{
         return $array;
     }
 
+    //I`m getting the rent list and then saving it inside of an array ordering this result as asc
     public function getRent(){
         $result = $this->mysqli->query("SELECT * FROM tbreservas");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -80,6 +83,8 @@ class Banco{
         }
         return $array;
     }
+
+    //I`m getting data from rent list and then doing inner join with car and cliente table to show the name of this values and not the id as is saved inside the tbReservas
     public function getRentC(){
         $result = $this->mysqli->query("SELECT * from tbreservas INNER JOIN tbcliente ON tbreservas.id_cliente_reserva = tbcliente.id_cliente INNER JOIN tbcarro ON tbreservas.id_carro_reserva = tbcarro.id_carro ORDER BY id_reserva ASC");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -88,6 +93,7 @@ class Banco{
         return $array;
     }
 
+    //Here i`m working to get the parameter searchCli and find it inside tbcliente to load the results inside the input using autocomplete json code
     public function getClientSearch($searchCli){
         $result = $this->mysqli->query("SELECT nome_cliente from tbcliente WHERE nome_cliente LIKE '%".$searchCli."%'ORDER BY nome_cliente ASC LIMIT 3");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -96,7 +102,7 @@ class Banco{
         echo json_encode($array);
     }
     
-
+    //Here i`m working to get the parameter searchCar and find it inside tbcar to load the results inside the input using autocomplete json code
     public function getCarSearch($searchCar){
         $result = $this->mysqli->query("SELECT nome_carro from tbcarro WHERE nome_carro LIKE '%".$searchCar."%'ORDER BY nome_carro ASC LIMIT 3");
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -105,6 +111,7 @@ class Banco{
         echo json_encode($array);
     }
 
+    //function responsible to delete cliente data based on id that we are receiving from controller/view
     public function deleteClient($id){
         if($this->mysqli->query("DELETE FROM `tbcliente` WHERE `nome_cliente` = '".$id."';")== TRUE){
             return true;
@@ -114,6 +121,7 @@ class Banco{
 
     }
 
+    //function responsible to delete car data based on id that we are receiving from controller/view
     public function deleteCar($id){
         if($this->mysqli->query("DELETE FROM `tbcarro` WHERE `id_carro` = '".$id."';")== TRUE){
             return true;
@@ -122,6 +130,7 @@ class Banco{
         }
     }
 
+    //function responsible to dele a rent data based on id that we are receiving from controller/view
     public function deleteRent($id){
         if($this->mysqli->query("DELETE FROM `tbreservas` WHERE `id_reserva` = '".$id."';")== TRUE){
             return true;
@@ -131,11 +140,13 @@ class Banco{
 
     }
 
+    //function responsible to search a cliente inside of table based on the id that was sent as parameter
     public function pesquisaClient($id){
         $result = $this->mysqli->query("SELECT * FROM tbcliente WHERE nome_cliente='$id'");
         return $result->fetch_array(MYSQLI_ASSOC);
 
     }
+    //function responsible to update the cliente data based on the id that was sent as parameter
     public function updateClient($nome,$telefone,$email,$id){
         $stmt = $this->mysqli->prepare("UPDATE `tbcliente` SET `nome_cliente` = ?, `telefone_cliente`= ?, `email_cliente`=? WHERE `nome_cliente` = ?");
         $stmt->bind_param("ssss",$nome,$telefone,$email,$id);
@@ -146,11 +157,13 @@ class Banco{
         }
     }
 
+    //function responsible to search car based on the id that was sent as parameter
     public function pesquisaCar($id){
         $result = $this->mysqli->query("SELECT * FROM tbcarro WHERE id_carro='$id'");
         return $result->fetch_array(MYSQLI_ASSOC);
 
     }
+    //function responsible to update car data based on the id that was sent as parameter
     public function updateCar($nome,$modelo,$ano,$cor,$id){
         $stmt = $this->mysqli->prepare("UPDATE `tbcarro` SET `nome_carro` = ?, `modelo_carro`=?, `ano_carro`=?, `cor_carro`=? WHERE `id_carro` = ?");
         $stmt->bind_param("sssss",$nome,$modelo,$ano,$cor,$id);
@@ -161,11 +174,13 @@ class Banco{
         }
     }
 
+    //function focoused to search rent inside tbreservas based on the id that was sent as parameter
     public function pesquisaRent($id){
         $result = $this->mysqli->query("SELECT * FROM tbreservas INNER JOIN tbcliente ON tbreservas.id_cliente_reserva = tbcliente.id_cliente INNER JOIN tbcarro ON tbreservas.id_carro_reserva = tbcarro.id_carro WHERE id_reserva='$id'");
         return $result->fetch_array(MYSQLI_ASSOC);
 
     }
+    //function responsible to update rent based on the id that was sent as parameter
     public function updateRent($clienteR,$carroR,$dataR,$dataD,$valorR,$id){
         $sql = $this->mysqli->query("SELECT id_cliente from tbcliente WHERE nome_cliente = '$clienteR'");
         while($row = $sql->fetch_array(MYSQLI_ASSOC)){
