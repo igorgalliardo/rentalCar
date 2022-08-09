@@ -12,3 +12,5 @@ MVC (Model View and Controller)
 OOP
 
 The ideia with this simple tool is to apply in a real project the backend technologies that i`m learning.
+
+NEXT Steps, make the code clean and add PDO for the PHP to bring more security to my code
