@@ -13,10 +13,14 @@ class Banco{
     }
 
     private function conexao(){
-        $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO , BD_SENHA, BD_BANCO);
+        try {
+                $this->mysqli = new PDO($dsn, $user, $pass, $options);
+        }catch(\PDOException $e){
+            throw new \PDOException($e->getMessage());
+        }
         //here is a basic connection with DB, we are using the definitions from init.php as parameter
     }
-
+ 
     //this function is responsible to receive as parameter informations from controllerCadastro
     public function setClient($nome,$telefone,$email){
         $stmt = $this->mysqli->prepare("INSERT INTO tbcliente (`nome_cliente`, `telefone_cliente`, `email_cliente`) VALUES (?,?,?)");

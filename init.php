@@ -6,8 +6,17 @@ date_default_timezone_set('America/Sao_Paulo');
 
 // conexão com o banco de dados
 
-define('BD_SERVIDOR','localhost');
-define('BD_USUARIO','root');
-define('BD_SENHA','');
-define('BD_BANCO','rentalcar');
+$host = 'localhost';
+$db = 'rentalcar';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+$options = [
+    PDO::ATTR_ERRMODE               =>PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE    =>PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES      =>false,
+];
 ?>
